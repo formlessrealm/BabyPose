@@ -1,19 +1,23 @@
-# Албан ёсны python суурь
+# Баз дүрс
 FROM python:3.10-slim
 
-# Ажлын директор
+# libGL болон шаардлагатай сангууд суулгана
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Ажлын хавтас үүсгэнэ
 WORKDIR /app
 
-# Requirements суулгах
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-# Кодыг хуулна
+# Төслийн бүх файлыг хуулах
 COPY . .
 
-# Flask порт тохируулна
-ENV PORT=10000
-ENV FLASK_APP=app.py
+# Шаардлагатай Python сангууд суулгах
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Сервер ажиллуулах
+# Порт тохируулах
+EXPOSE 10000
+
+# Сервер эхлүүлэх
 CMD ["python", "app.py"]
