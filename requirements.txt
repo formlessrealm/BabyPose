@@ -1,0 +1,6 @@
+flask
+opencv-python
+mediapipe
+joblib
+numpy
+gunicorn
