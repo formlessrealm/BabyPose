@@ -73,4 +73,5 @@ def analyze_pose(image_path):
 
 # Run server
 if __name__ == "__main__":
-    app.run(debug=True,port=5050, use_reloader=False)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
